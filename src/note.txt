@@ -1,3 +1,6 @@
-Add material
+1) Add material
 npm install --save @angular/material @angular/cdk @angular/animations
 ng add @angular/material
+
+2) Add theme globally by adding to styles.css
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";

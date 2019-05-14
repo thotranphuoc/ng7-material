@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {MatCheckboxModule} from '@angular/material/checkbox';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 
 @Component({
   selector: 'app-example-checkbox',
@@ -7,7 +7,10 @@ import {MatCheckboxModule} from '@angular/material/checkbox';
   styleUrls: ['./example-checkbox.component.css']
 })
 export class ExampleCheckboxComponent implements OnInit {
-
+  checked = false;
+  indeterminate = false;
+  labelPosition = 'after';
+  disabled = false;
   constructor() { }
 
   ngOnInit() {
