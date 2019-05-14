@@ -15,13 +15,21 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { QuestionComponent } from './question/question.component';
 import { MatButtonModule } from '@angular/material/button';
+import { MatInputModule } from '@angular/material/input';
+import * as env from '../environments/environment'
+import * as firebase from 'firebase/app';
+import { QuestionAddComponent } from './question-add/question-add.component';
+import { QuestionsUploadComponent } from './questions-upload/questions-upload.component';
 
+firebase.initializeApp(env.environment.firebaseConfig)
 @NgModule({
   declarations: [
     AppComponent,
     ExampleCheckboxComponent,
     ExampleAutocompleteComponent,
-    QuestionComponent
+    QuestionComponent,
+    QuestionAddComponent,
+    QuestionsUploadComponent
   ],
   imports: [
     BrowserModule,
@@ -33,7 +41,8 @@ import { MatButtonModule } from '@angular/material/button';
     MatFormFieldModule,
     MatRadioModule,
     MatCardModule,
-    MatButtonModule
+    MatButtonModule,
+    MatInputModule
 
   ],
   providers: [],

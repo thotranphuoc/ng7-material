@@ -1,4 +1,4 @@
-<div class="container" *ngIf="!isResultShown">
+<!-- <div class="container" *ngIf="!isResultShown">
   <mat-card>
     <mat-card-content>
       <section class="section-question">
@@ -23,6 +23,35 @@
   Your Score: <span style="font-size: 2rem">{{RIGHTTOTAL}}/{{Questions.length}}</span>
   <div *ngFor="let Q of Questions">
     {{Q.QNo}}:<button *ngIf="Q.isCorrect" mat-button color="primary">Right</button><button *ngIf="!Q.isCorrect"
+      mat-button color="warn">Wrong</button>
+  </div>
+</div> -->
+
+<div class="container" *ngIf="!isResultShown && selectedQ">
+  <mat-card>
+    <mat-card-content>
+      <section class="section-question">
+        <h3>{{selectedQ.Q_Title}}</h3>
+        <p>{{selectedQ.Q_Text}}</p>
+      </section>
+      <section class="section">
+        <mat-radio-group value="{{selectedQ.Q_answerIndex}}" (change)="onChange($event)">
+          <mat-radio-button *ngFor="let Answer of selectedQ.Q_Answers" value="{{Answer.A_ID}}">
+            <span class="wrap-mat-radio-label">{{Answer.A_Text}}</span>
+          </mat-radio-button>
+        </mat-radio-group>
+      </section>
+    </mat-card-content>
+  </mat-card>
+  <button mat-button color="primary" (click)="back()" *ngIf="qIndex>0">Back</button>
+  <button mat-button color="primary" (click)="next()" *ngIf="qIndex<QUESTIONS.length-1">Next</button>
+  <button mat-button color="primary" (click)="finish()" *ngIf="qIndex == QUESTIONS.length-1">Finish</button>
+
+</div>
+<div class="container" *ngIf="isResultShown">
+  Your Score: <span style="font-size: 2rem">{{RIGHTTOTAL}}/{{QUESTIONS.length}}</span>
+  <div *ngFor="let Q of QUESTIONS">
+    {{Q.Q_Title}}:<button *ngIf="Q.Q_isCorrect" mat-button color="primary">Right</button><button *ngIf="!Q.Q_isCorrect"
       mat-button color="warn">Wrong</button>
   </div>
 </div>

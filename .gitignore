@@ -9,7 +9,7 @@
 /node_modules
 
 # configuration files
-/src/environments
+/environments
 
 # IDEs and editors
 /.idea

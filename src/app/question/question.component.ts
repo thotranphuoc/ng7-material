@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { MatRadioChange, MatRadioButton } from '@angular/material/radio';
-var firebase: any;
+import { CrudService } from '../services/crud.service';
+import { iQuestion } from '../interfaces/question.interface';
+
 @Component({
   selector: 'app-question',
   templateUrl: './question.component.html',
@@ -98,32 +100,37 @@ export class QuestionComponent implements OnInit {
 
   Questions = [this.Question1, this.Question2, this.Question3]
   aIndex: number = 1;
-  selectedQ: any;
+  selectedQ: iQuestion;
   qIndex: number = 0;
   RESULTS = [];
-  myAnswer =2;
+  myAnswer = 2;
   QTOTAL: number = 0;
   RIGHTTOTAL: number = 0;
   isResultShown: boolean = false;
-  constructor() { }
+  QUESTIONS: iQuestion[] = [];
+  constructor(
+    private crudService: CrudService
+  ) {
+  }
   ngOnInit() {
     // this.selectedQ = this.Questions[this.qIndex];
     // console.log(this.selectedQ);
-    this.setSelectedQuestion(this.Questions[0]);
+    // this.setSelectedQuestion(this.Questions[0]);
     this.RESULTS = Array(this.Questions.length);
-    this.checkFirebase();
-  }
-
-  checkFirebase(){
-    firebase.firestore().collection('users').add({
-      'name': 'Tho'
+    this.crudService.questionsGet().then((res: any) => {
+      this.QUESTIONS = res.QUESTIONS;
+      this.setSelectedQuestion(this.QUESTIONS[0]);
     })
   }
 
-  setSelectedQuestion(Q: any){
+  checkFirebase() {
+
+  }
+
+  setSelectedQuestion(Q: iQuestion) {
     this.selectedQ = Q;
     console.log(this.selectedQ);
-    this.aIndex = this.selectedQ.answerIndex;
+    this.aIndex = this.selectedQ.Q_answerIndex;
     // setTimeout(() => {
     //   this.aIndex = this.selectedQ.answerIndex;
     // }, 1000);
@@ -136,7 +143,7 @@ export class QuestionComponent implements OnInit {
     // RESULT.isCorrect = this.selectedQ.QAnswers[this.aIndex].isCorrect;
     // this.RESULTS[this.qIndex] = RESULT;
     this.qIndex++;
-    this.selectedQ = this.Questions[this.qIndex];
+    this.selectedQ = this.QUESTIONS[this.qIndex];
     // this.aIndex = this.RESULTS[this.qIndex].answerIndex;
     // this.aIndex = null;
     // console.log(this.RESULTS);
@@ -149,24 +156,24 @@ export class QuestionComponent implements OnInit {
     // RESULT.isCorrect = this.selectedQ.QAnswers[this.aIndex].isCorrect;
     // this.RESULTS[this.qIndex] = RESULT;
     this.qIndex--;
-    this.selectedQ = this.Questions[this.qIndex];
+    this.selectedQ = this.QUESTIONS[this.qIndex];
     // this.aIndex = null;
     // console.log(this.RESULTS);
   }
 
   onChange(mrChange: MatRadioChange) {
     console.log(mrChange.value);
-    this.selectedQ.answerIndex = mrChange.value;
-    console.log(this.Questions);
- } 
+    this.selectedQ.Q_answerIndex = mrChange.value;
+    console.log(this.QUESTIONS);
+  }
 
- finish(){
-  this.isResultShown = true;
-  this.Questions.forEach(Q =>{
-    Q.isCorrect = Q.QAnswers[Q.answerIndex -1].isCorrect;
-  })
-  this.RIGHTTOTAL = this.Questions.filter(Q=> Q.isCorrect).length;
-  console.log(this.Questions);
- }
+  finish() {
+    this.isResultShown = true;
+    this.QUESTIONS.forEach(Q => {
+      Q.Q_isCorrect = Q.Q_Answers[Q.Q_answerIndex - 1].A_isCorrect;
+    })
+    this.RIGHTTOTAL = this.QUESTIONS.filter(Q => Q.Q_isCorrect).length;
+    console.log(this.QUESTIONS);
+  }
 
 }
