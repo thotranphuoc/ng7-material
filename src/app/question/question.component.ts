@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MatRadioChange, MatRadioButton } from '@angular/material/radio';
-
+var firebase: any;
 @Component({
   selector: 'app-question',
   templateUrl: './question.component.html',
@@ -111,6 +111,13 @@ export class QuestionComponent implements OnInit {
     // console.log(this.selectedQ);
     this.setSelectedQuestion(this.Questions[0]);
     this.RESULTS = Array(this.Questions.length);
+    this.checkFirebase();
+  }
+
+  checkFirebase(){
+    firebase.firestore().collection('users').add({
+      'name': 'Tho'
+    })
   }
 
   setSelectedQuestion(Q: any){

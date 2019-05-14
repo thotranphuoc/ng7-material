@@ -4,3 +4,6 @@ ng add @angular/material
 
 2) Add theme globally by adding to styles.css
 @import "~@angular/material/prebuilt-themes/indigo-pink.css";
+
+3) Setup firebase angularfire
+npm install firebase --save
