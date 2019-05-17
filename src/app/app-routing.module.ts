@@ -4,10 +4,18 @@ import { ExampleCheckboxComponent } from './example-checkbox/example-checkbox.co
 import { ExampleAutocompleteComponent } from './example-autocomplete/example-autocomplete.component';
 import { QuestionComponent } from './question/question.component';
 import { QuestionAddComponent } from './question-add/question-add.component';
+import { QuestionsUploadComponent } from './questions-upload/questions-upload.component';
+import { ExamComponent } from './exam/exam.component';
+import { ExamsComponent } from './exams/exams.component';
 
 const routes: Routes = [
-  { path: '', component: QuestionComponent },
+  // { path: '', component: QuestionComponent },
+
+  { path: '', component: ExamsComponent },
+  { path: 'exam/:id', component: ExamComponent },
   { path: 'question-add', component: QuestionAddComponent },
+  { path: 'question', component: QuestionComponent },
+  { path: 'questions-upload', component: QuestionsUploadComponent },
   { path: 'checkbox', component: ExampleCheckboxComponent },
   { path: 'auto-complete', component: ExampleAutocompleteComponent },
 ];

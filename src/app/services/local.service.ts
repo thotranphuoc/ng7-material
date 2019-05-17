@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { iQuestion } from '../interfaces/question.interface';
+import { iCollection } from '../interfaces/collection.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -32,5 +33,14 @@ export class LocalService {
     Q_CreatedDate: '',
     Q_Level: '',
     Q_Type: ''
+  }
+
+  COLLECTION_DEFAULT: iCollection = {
+    C_CREATEDON: '',
+    C_ID: '',
+    C_OWNER: '',
+    C_OWNER_ID: '',
+    C_QUESTIONS: [],
+    C_TITLE: '',
   }
 }

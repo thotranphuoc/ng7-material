@@ -2,10 +2,6 @@
     padding: 10px;
 }
 
-.mat-card{
-    margin: 10px 0;
-}
-
 .section{
     display: flex;
     align-content: center;
@@ -19,4 +15,17 @@ mat-radio-button{
 
 .wrap-mat-radio-label {
     white-space: normal;
+}
+
+.rightAnswer{
+    color: #ff4081;
+    font-weight: bolder;
+}
+
+mat-card{
+    margin: 10px 0;
+}
+
+mat-icon{
+    color: #565354;
 }

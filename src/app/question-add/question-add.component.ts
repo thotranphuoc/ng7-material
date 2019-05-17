@@ -3,6 +3,7 @@ import { CrudService } from '../services/crud.service';
 import { iQuestion } from '../interfaces/question.interface';
 import { LocalService } from '../services/local.service';
 import { iAnswer } from '../interfaces/answer.interface';
+import { LogService } from '../services/log.service';
 
 @Component({
   selector: 'app-question-add',
@@ -18,7 +19,8 @@ export class QuestionAddComponent implements OnInit {
   correctedAnswer: string;
   constructor(
     private crudService: CrudService,
-    private localService: LocalService
+    private localService: LocalService,
+    private log: LogService
   ) {
     this.Q = this.localService.QUESTION_DEFAULT;
   }
@@ -27,7 +29,7 @@ export class QuestionAddComponent implements OnInit {
   }
 
   createQuestion() {
-    console.log(this.Q, this.ANSWER1, this.ANSWER2, this.ANSWER3, this.ANSWER4, this.correctedAnswer);
+    if(this.log.isON) console.log(this.Q, this.ANSWER1, this.ANSWER2, this.ANSWER3, this.ANSWER4, this.correctedAnswer);
     let ANSWER1: iAnswer = {
       A_ID: '1',
       A_Text: this.ANSWER1,

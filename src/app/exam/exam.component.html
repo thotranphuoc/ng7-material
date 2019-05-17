@@ -1,0 +1,22 @@
+<div class="container" *ngIf="!isResultShown && selectedQ">
+  <h3>{{COLLECTION.C_TITLE}}</h3>
+  <h4>{{qIndex+1}}/{{COLLECTION.C_QUESTIONS.length}}</h4>
+  <app-question [QUESTION]="selectedQ" (onUpdateQuestion)="updateQuestion($event)"></app-question>
+  <button mat-button color="primary" (click)="back()" *ngIf="qIndex>0">Back</button>
+  <button mat-button color="primary" (click)="next()" *ngIf="qIndex<QUESTIONS.length-1">Next</button>
+  <button mat-button color="primary" (click)="finish()" *ngIf="qIndex == QUESTIONS.length-1">Finish</button>
+
+</div>
+<div class="container" *ngIf="isResultShown">
+  Your Score: <span style="font-size: 2rem">{{RIGHTTOTAL}}/{{QUESTIONS.length}}</span>
+  <!-- <div *ngFor="let Q of QUESTIONS">
+    {{Q.Q_Title}}:<button *ngIf="Q.Q_isCorrect" mat-button color="primary">Right</button><button *ngIf="!Q.Q_isCorrect"
+      mat-button color="warn">Wrong</button>
+  </div> -->
+
+  <hr>
+  <app-question-result-view *ngFor="let QUESTION of QUESTIONS" [QUESTION]="QUESTION"></app-question-result-view>
+  <hr>
+
+  <button [routerLink]="['/']" routerLinkActive="router-link-active" mat-button color="primary">Home</button>
+</div>

@@ -16,3 +16,7 @@ mat-radio-button{
 .wrap-mat-radio-label {
     white-space: normal;
 }
+
+mat-card{
+    margin: 10px 0;
+  }

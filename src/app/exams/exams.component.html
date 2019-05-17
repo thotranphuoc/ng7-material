@@ -1,0 +1,10 @@
+<div class="container">
+  <h3>Welcome,</h3>
+  <mat-nav-list>
+    <mat-list-item *ngFor="let COLLECTION of COLLECTIONS">
+      <a [routerLink]="['/exam', COLLECTION.C_ID]" routerLinkActive="router-link-active"
+        matLine>{{COLLECTION.C_TITLE}}</a>
+      <p matLine> {{COLLECTION.C_QUESTIONS.length}} questions </p>
+    </mat-list-item>
+  </mat-nav-list>
+</div>
