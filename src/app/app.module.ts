@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -17,7 +17,8 @@ import { QuestionComponent } from './question/question.component';
 import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
 import { MatListModule } from '@angular/material/list';
-import {MatIconModule} from '@angular/material/icon';
+import { MatIconModule } from '@angular/material/icon';
+import { MatDialogModule } from '@angular/material/dialog';
 import * as env from '../environments/environment'
 import * as firebase from 'firebase/app';
 import { QuestionAddComponent } from './question-add/question-add.component';
@@ -26,6 +27,7 @@ import { PapaParseModule } from 'ngx-papaparse';
 import { ExamComponent } from './exam/exam.component';
 import { ExamsComponent } from './exams/exams.component';
 import { QuestionResultViewComponent } from './question-result-view/question-result-view.component';
+import { LoginComponent } from './login/login.component';
 
 firebase.initializeApp(env.environment.firebaseConfig)
 @NgModule({
@@ -38,13 +40,16 @@ firebase.initializeApp(env.environment.firebaseConfig)
     QuestionsUploadComponent,
     ExamComponent,
     ExamsComponent,
-    QuestionResultViewComponent
+    QuestionResultViewComponent,
+    LoginComponent
   ],
+  entryComponents: [LoginComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     FormsModule,
+    ReactiveFormsModule,
     MatCheckboxModule,
     MatAutocompleteModule,
     MatFormFieldModule,
@@ -54,7 +59,8 @@ firebase.initializeApp(env.environment.firebaseConfig)
     MatInputModule,
     MatListModule,
     MatIconModule,
-    PapaParseModule
+    PapaParseModule,
+    MatDialogModule
 
   ],
   providers: [],

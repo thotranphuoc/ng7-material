@@ -5,6 +5,8 @@ import { ActivatedRoute } from '@angular/router';
 import { iQuestion } from '../interfaces/question.interface';
 import { MatRadioChange } from '@angular/material/radio';
 import { LogService } from '../services/log.service';
+import { MatDialog } from '@angular/material';
+import { LoginComponent, DialogData } from '../login/login.component';
 @Component({
   selector: 'app-exam',
   templateUrl: './exam.component.html',
@@ -20,7 +22,8 @@ export class ExamComponent implements OnInit {
   constructor(
     private crudService: CrudService,
     private route: ActivatedRoute,
-    private log: LogService
+    private log: LogService,
+    private dialog: MatDialog
   ) { }
 
   ngOnInit() {
@@ -29,7 +32,7 @@ export class ExamComponent implements OnInit {
       this.COLLECTION = <iCollection>res.data();
       this.QUESTIONS = this.COLLECTION.C_QUESTIONS;
       this.selectedQ = this.QUESTIONS[0]
-      if(this.log.isON) console.log(this.COLLECTION)
+      if (this.log.isON) console.log(this.COLLECTION)
     })
   }
 
@@ -45,15 +48,32 @@ export class ExamComponent implements OnInit {
   finish() {
     this.isResultShown = true;
     this.QUESTIONS.forEach(Q => {
-      Q.Q_isCorrect = Q.Q_answerIndex? Q.Q_Answers[Q.Q_answerIndex - 1].A_isCorrect : false;
+      Q.Q_isCorrect = Q.Q_answerIndex ? Q.Q_Answers[Q.Q_answerIndex - 1].A_isCorrect : false;
     })
     this.RIGHTTOTAL = this.QUESTIONS.filter(Q => Q.Q_isCorrect).length;
-    if(this.log.isON) console.log(this.QUESTIONS, this.RIGHTTOTAL);
+    if (this.log.isON) console.log(this.QUESTIONS, this.RIGHTTOTAL);
   }
 
 
   updateQuestion(e: iQuestion) {
-    if(this.log.isON) console.log(e);
+    if (this.log.isON) console.log(e);
+  }
+
+  save() {
+    this.openDialog();
+  }
+
+  openDialog(): void {
+    let _data: DialogData = { name: 'Tran Phuoc Tho', email: 'tho@en', password: '' };
+    const dialogRef = this.dialog.open(LoginComponent, {
+      width: '500px',
+      data: _data
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+      console.log(result);
+    });
   }
 
 

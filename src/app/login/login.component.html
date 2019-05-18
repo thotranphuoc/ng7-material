@@ -1,0 +1,31 @@
+<!-- <h1 mat-dialog-title>Hi {{data.name}}</h1>
+<div mat-dialog-content>
+  <mat-form-field>
+    <p>Username</p>
+    <input matInput [(ngModel)]="data.email">
+  </mat-form-field>
+</div>
+<div mat-dialog-content>
+  <p>Password</p>
+  <mat-form-field>
+    <input matInput [(ngModel)]="data.password">
+  </mat-form-field>
+</div> -->
+<!-- <div mat-dialog-actions>
+  <button mat-button (click)="onNoClick()">No Thanks</button>
+  <button mat-button [mat-dialog-close]="data" cdkFocusInitial>OK</button>
+</div> -->
+
+<div class="example-container">
+  <mat-form-field>
+    <input matInput placeholder="Email" [formControl]="email" required>
+    <mat-error *ngIf="email.invalid">{{getErrorMessage()}}</mat-error>
+  </mat-form-field>
+  <mat-form-field>
+    <input matInput placeholder="Password" [formControl]="password" [type]="hide ? 'password' : 'text'">
+    <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+  </mat-form-field>
+
+  <button mat-button (click)="onCancel()">Cancel</button>
+  <button mat-button (click)="onLogin()" cdkFocusInitial>Login</button>
+</div>
