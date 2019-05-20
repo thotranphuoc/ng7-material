@@ -4,6 +4,8 @@ import 'firebase/firestore';
 import { iQuestion } from '../interfaces/question.interface';
 import { iCollection } from '../interfaces/collection.interface';
 import { LogService } from './log.service';
+import { iExam } from '../interfaces/exam.interface';
+
 @Injectable({
   providedIn: 'root'
 })
@@ -47,6 +49,10 @@ export class CrudService {
     })
   }
 
+  questionDelete(QID: string){
+    return firebase.firestore().doc('QUESTIONS/'+QID).delete();
+  }
+
   questionsAdd(QUESTIONS: iQuestion[]) {
     let Pros = Array(QUESTIONS.length);
     QUESTIONS.forEach((Q, index) => {
@@ -78,5 +84,23 @@ export class CrudService {
 
   collectionsGet(){
     return firebase.firestore().collection('COLLECTIONS').get()
+  }
+
+  resultAdd(EXAM: iExam){
+    return new Promise((resolve, reject)=>{
+      firebase.firestore().collection('RESULTS').add(EXAM)
+      .then((res)=>{
+        let ID = res.id;
+        EXAM.E_TAKEN_ID = ID;
+        EXAM.E_TAKEN_DATE = Date.now()
+        return res.update(EXAM) 
+      })
+      .then(()=>{
+        resolve({EXAM: EXAM})
+      })
+      .catch((err)=>{
+        reject(err);
+      })
+    })
   }
 }

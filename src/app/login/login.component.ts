@@ -1,6 +1,8 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { FormControl, Validators } from '@angular/forms';
+import { AuthService } from '../services/auth.service';
+import { AppService } from '../services/app.service';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -10,7 +12,10 @@ export class LoginComponent implements OnInit {
   email = new FormControl('', [Validators.required, Validators.email]);
   password = new FormControl('', [Validators.required]);
   hide: boolean = true;
+  isSignUp: boolean = false;
   constructor(
+    private authService: AuthService,
+    private appService: AppService,
     public dialogRef: MatDialogRef<LoginComponent>,
     @Inject(MAT_DIALOG_DATA) public data: DialogData
   ) { }
@@ -28,6 +33,29 @@ export class LoginComponent implements OnInit {
 
   onLogin() {
     console.log(this.email.value, this.password.value);
+    this.authService.signIn(this.email.value, this.password.value)
+      .then((res) => {
+        console.log(res);
+        // save result
+        this.onCancel();
+      })
+      .catch((err: Error) => {
+        console.log(err);
+        this.appService.alertShow(err.message)
+      })
+  }
+
+  onSignUp() {
+    this.authService.signUp(this.email.value, this.password.value)
+      .then((res) => {
+        console.log(res);
+        // save result
+        this.onCancel();
+      })
+      .catch((err: Error) => {
+        console.log(err);
+        this.appService.alertShow(err.message)
+      })
   }
 
 

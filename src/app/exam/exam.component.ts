@@ -7,6 +7,9 @@ import { MatRadioChange } from '@angular/material/radio';
 import { LogService } from '../services/log.service';
 import { MatDialog } from '@angular/material';
 import { LoginComponent, DialogData } from '../login/login.component';
+import { AppService } from '../services/app.service';
+import { iExam } from '../interfaces/exam.interface';
+import { LocalService } from '../services/local.service';
 @Component({
   selector: 'app-exam',
   templateUrl: './exam.component.html',
@@ -20,10 +23,12 @@ export class ExamComponent implements OnInit {
   RIGHTTOTAL: number = 0;
   isResultShown: boolean = false;
   constructor(
+    private localService: LocalService,
     private crudService: CrudService,
     private route: ActivatedRoute,
     private log: LogService,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private appService: AppService
   ) { }
 
   ngOnInit() {
@@ -60,7 +65,21 @@ export class ExamComponent implements OnInit {
   }
 
   save() {
-    this.openDialog();
+    let EXAM: iExam = this.localService.EXAM_DEFAULT;
+    EXAM.E_EXAMINEE_ID = '6GK9eBKZpicdZ8g2DqJTknhW8LD3';
+    EXAM.E_QUESTIONS = this.QUESTIONS;
+    EXAM.E_RESULTS = this.QUESTIONS;
+    EXAM.E_TAKEN_DATE = Date.now();
+
+    console.log(EXAM)
+    this.crudService.resultAdd(EXAM)
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+    // this.openDialog();
   }
 
   openDialog(): void {
@@ -73,6 +92,8 @@ export class ExamComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed');
       console.log(result);
+      // this.appService.toastShow('Saved successfully', 3000, 'OK');
+      this.appService.toastShowWithConfirmOK('Save successfully', 'OK');
     });
   }
 

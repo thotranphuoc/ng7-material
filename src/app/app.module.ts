@@ -19,6 +19,8 @@ import { MatInputModule } from '@angular/material/input';
 import { MatListModule } from '@angular/material/list';
 import { MatIconModule } from '@angular/material/icon';
 import { MatDialogModule } from '@angular/material/dialog';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
+
 import * as env from '../environments/environment'
 import * as firebase from 'firebase/app';
 import { QuestionAddComponent } from './question-add/question-add.component';
@@ -28,6 +30,9 @@ import { ExamComponent } from './exam/exam.component';
 import { ExamsComponent } from './exams/exams.component';
 import { QuestionResultViewComponent } from './question-result-view/question-result-view.component';
 import { LoginComponent } from './login/login.component';
+import { AlertComponent } from './alert/alert.component';
+import { ToastComponent } from './toast/toast.component';
+import { TestComponent } from './test/test.component';
 
 firebase.initializeApp(env.environment.firebaseConfig)
 @NgModule({
@@ -41,9 +46,12 @@ firebase.initializeApp(env.environment.firebaseConfig)
     ExamComponent,
     ExamsComponent,
     QuestionResultViewComponent,
-    LoginComponent
+    LoginComponent,
+    AlertComponent,
+    ToastComponent,
+    TestComponent
   ],
-  entryComponents: [LoginComponent],
+  entryComponents: [LoginComponent, AlertComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -60,7 +68,8 @@ firebase.initializeApp(env.environment.firebaseConfig)
     MatListModule,
     MatIconModule,
     PapaParseModule,
-    MatDialogModule
+    MatDialogModule,
+    MatSnackBarModule
 
   ],
   providers: [],

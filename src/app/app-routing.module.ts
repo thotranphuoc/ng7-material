@@ -7,6 +7,8 @@ import { QuestionAddComponent } from './question-add/question-add.component';
 import { QuestionsUploadComponent } from './questions-upload/questions-upload.component';
 import { ExamComponent } from './exam/exam.component';
 import { ExamsComponent } from './exams/exams.component';
+import { TestComponent } from './test/test.component';
+import { LoginComponent } from './login/login.component';
 
 const routes: Routes = [
   // { path: '', component: QuestionComponent },
@@ -18,6 +20,8 @@ const routes: Routes = [
   { path: 'questions-upload', component: QuestionsUploadComponent },
   { path: 'checkbox', component: ExampleCheckboxComponent },
   { path: 'auto-complete', component: ExampleAutocompleteComponent },
+  { path: 'test', component: TestComponent },
+  { path: 'login', component: LoginComponent },
 ];
 
 @NgModule({
