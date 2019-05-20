@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CrudService } from '../services/crud.service';
 import { iCollection } from '../interfaces/collection.interface';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { iQuestion } from '../interfaces/question.interface';
 import { MatRadioChange } from '@angular/material/radio';
 import { LogService } from '../services/log.service';
@@ -10,6 +10,7 @@ import { LoginComponent, DialogData } from '../login/login.component';
 import { AppService } from '../services/app.service';
 import { iExam } from '../interfaces/exam.interface';
 import { LocalService } from '../services/local.service';
+import { AuthService } from '../services/auth.service';
 @Component({
   selector: 'app-exam',
   templateUrl: './exam.component.html',
@@ -22,13 +23,16 @@ export class ExamComponent implements OnInit {
   qIndex: number = 0;
   RIGHTTOTAL: number = 0;
   isResultShown: boolean = false;
+  EXAM: iExam;
   constructor(
     private localService: LocalService,
     private crudService: CrudService,
     private route: ActivatedRoute,
+    private router: Router,
     private log: LogService,
     private dialog: MatDialog,
-    private appService: AppService
+    private appService: AppService,
+    private authService: AuthService
   ) { }
 
   ngOnInit() {
@@ -65,21 +69,19 @@ export class ExamComponent implements OnInit {
   }
 
   save() {
-    let EXAM: iExam = this.localService.EXAM_DEFAULT;
-    EXAM.E_EXAMINEE_ID = '6GK9eBKZpicdZ8g2DqJTknhW8LD3';
-    EXAM.E_QUESTIONS = this.QUESTIONS;
-    EXAM.E_RESULTS = this.QUESTIONS;
-    EXAM.E_TAKEN_DATE = Date.now();
+    this.EXAM = this.localService.EXAM_DEFAULT;
+    // EXAM.E_EXAMINEE_ID = '6GK9eBKZpicdZ8g2DqJTknhW8LD3';
+    // this.EXAM.E_QUESTIONS = this.QUESTIONS;
+    this.EXAM.E_RESULTS = this.QUESTIONS;
+    this.EXAM.E_TAKEN_DATE = Date.now();
 
-    console.log(EXAM)
-    this.crudService.resultAdd(EXAM)
-      .then((res) => {
-        console.log(res);
-      })
-      .catch((err) => {
-        console.log(err);
-      })
-    // this.openDialog();
+    console.log(this.EXAM)
+    if (this.authService.isAuth()) {
+      this.EXAM.E_EXAMINEE_ID = this.authService.user.uid;
+      this.doSaveResult();
+    } else {
+      this.openDialog();
+    }
   }
 
   openDialog(): void {
@@ -92,9 +94,25 @@ export class ExamComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed');
       console.log(result);
-      // this.appService.toastShow('Saved successfully', 3000, 'OK');
-      this.appService.toastShowWithConfirmOK('Save successfully', 'OK');
+      if (this.authService.isAuth()) {
+        this.EXAM.E_EXAMINEE_ID = this.authService.user.uid;
+        this.doSaveResult();
+      }
+      // this.appService.toastShowWithConfirmOK('Save successfully', 'OK');
     });
+  }
+
+
+  doSaveResult() {
+    this.crudService.resultAdd(this.EXAM)
+      .then((res) => {
+        console.log(res);
+        this.appService.toastShow('Result saved!', 3000, 'OK');
+        this.router.navigate(['/'])
+      })
+      .catch((err) => {
+        console.log(err);
+      })
   }
 
 

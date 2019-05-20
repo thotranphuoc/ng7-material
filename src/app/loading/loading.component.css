@@ -1,0 +1,11 @@
+.container{
+      text-align: center;
+  }
+
+.textheader{
+      margin: 10px;
+  }
+
+.spinner{
+      display: inline-block;
+  }

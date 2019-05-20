@@ -47,8 +47,8 @@ export class LocalService {
 
   EXAM_DEFAULT: iExam = {
     E_ID: '',
-    E_TTITLE: '',
-    E_QUESTIONS: [],
+    E_TITLE: '',
+    // E_QUESTIONS: [],
     E_EXAMINEE: '',
     E_EXAMINEE_ID: '',
     E_RESULTS: [],

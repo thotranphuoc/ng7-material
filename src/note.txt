@@ -7,3 +7,6 @@ ng add @angular/material
 
 3) Setup firebase angularfire
 npm install firebase --save
+
+4) Setup angularfire
+npm install firebase @angular/fire --save

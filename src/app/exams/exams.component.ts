@@ -12,7 +12,8 @@ import { LogService } from '../services/log.service';
 export class ExamsComponent implements OnInit {
   COLLECTIONS: iCollection[] = [];
   links = ['link1', 'link2']
-  messages = [{ from: 'tho', subject: 'Hi', content: 'This is content' }, { from: 'tho', subject: 'Hi', content: 'This is content' }]
+  messages = [{ from: 'tho', subject: 'Hi', content: 'This is content' }, { from: 'tho', subject: 'Hi', content: 'This is content' }];
+  isLoading: boolean = false;
   constructor(
     private crudService: CrudService,
     private appService: AppService,
@@ -24,6 +25,7 @@ export class ExamsComponent implements OnInit {
   }
 
   getCollections() {
+    this.isLoading = true;
     this.COLLECTIONS = [];
     this.crudService.collectionsGet()
       .then((qSnap) => {
@@ -32,10 +34,12 @@ export class ExamsComponent implements OnInit {
           this.COLLECTIONS.push(COL);
         })
         this.COLLECTIONS = this.appService.arraySortA2ZByProperty(this.COLLECTIONS, 'C_TITLE');
-        if(this.log.isON) console.log(this.COLLECTIONS);
+        if (this.log.isON) console.log(this.COLLECTIONS);
+        this.isLoading = false;
       })
       .catch((err) => {
-        if(this.log.isON) console.log(err);
+        if (this.log.isON) console.log(err);
+        this.isLoading = false;
       })
   }
 

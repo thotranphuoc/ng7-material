@@ -2,6 +2,10 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
+// angularfire
+import { AngularFireModule } from '@angular/fire';
+import { AngularFirestoreModule } from '@angular/fire/firestore';
+import { AngularFireAuthModule } from '@angular/fire/auth';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ExampleCheckboxComponent } from './example-checkbox/example-checkbox.component';
@@ -19,7 +23,9 @@ import { MatInputModule } from '@angular/material/input';
 import { MatListModule } from '@angular/material/list';
 import { MatIconModule } from '@angular/material/icon';
 import { MatDialogModule } from '@angular/material/dialog';
-import {MatSnackBarModule} from '@angular/material/snack-bar';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatButtonToggleModule } from '@angular/material/button-toggle';
 
 import * as env from '../environments/environment'
 import * as firebase from 'firebase/app';
@@ -33,6 +39,7 @@ import { LoginComponent } from './login/login.component';
 import { AlertComponent } from './alert/alert.component';
 import { ToastComponent } from './toast/toast.component';
 import { TestComponent } from './test/test.component';
+import { LoadingComponent } from './loading/loading.component';
 
 firebase.initializeApp(env.environment.firebaseConfig)
 @NgModule({
@@ -49,7 +56,8 @@ firebase.initializeApp(env.environment.firebaseConfig)
     LoginComponent,
     AlertComponent,
     ToastComponent,
-    TestComponent
+    TestComponent,
+    LoadingComponent
   ],
   entryComponents: [LoginComponent, AlertComponent],
   imports: [
@@ -69,7 +77,12 @@ firebase.initializeApp(env.environment.firebaseConfig)
     MatIconModule,
     PapaParseModule,
     MatDialogModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    MatProgressSpinnerModule,
+    MatButtonToggleModule,
+    AngularFireModule.initializeApp(env.environment.firebaseConfig),
+    AngularFirestoreModule,
+    AngularFireAuthModule
 
   ],
   providers: [],

@@ -17,13 +17,18 @@
 </div> -->
 
 
+<mat-button-toggle-group appearance="legacy" [(ngModel)]="ACTION" aria-label="Font Style">
+  <mat-button-toggle cdkFocusInitial value="SIGNIN" (change)="selectButton($event)">SIGN IN</mat-button-toggle>
+  <mat-button-toggle value="SIGNUP" (change)="selectButton($event)">SIGN UP</mat-button-toggle>
+</mat-button-toggle-group>
 
-<div class="header">
+
+<!-- <div class="header">
   <button mat-button (click)="isSignUp = false" cdkFocusInitial>SIGN IN</button>
   <button mat-button (click)="isSignUp = true">SIGN UP</button>
-</div>
+</div> -->
 <hr>
-<div class="example-container" *ngIf="!isSignUp">
+<div class="example-container" *ngIf="ACTION =='SIGNIN'">
 
   <mat-form-field>
     <input matInput placeholder="Email" [formControl]="email" required>
@@ -38,7 +43,7 @@
   <button mat-button (click)="onLogin()" cdkFocusInitial>LOGIN</button>
 </div>
 
-<div class="example-container" *ngIf="isSignUp">
+<div class="example-container" *ngIf="ACTION =='SIGNUP'">
   <mat-form-field>
     <input matInput placeholder="Email" [formControl]="email" required>
     <mat-error *ngIf="email.invalid">{{getErrorMessage()}}</mat-error>
@@ -50,4 +55,5 @@
 
   <!-- <button mat-button (click)="onCancel()">CANCEL</button> -->
   <button mat-button (click)="onSignUp()" cdkFocusInitial>SIGN UP</button>
+  <app-loading *ngIf="isLoading"></app-loading>
 </div>
