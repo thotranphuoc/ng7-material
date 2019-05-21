@@ -1,5 +1,5 @@
 <div class="container">
-  <h3>Welcome,</h3>
+  <h3>Welcome {{authService?.user?.email}},</h3>
   <mat-nav-list>
     <mat-list-item *ngFor="let COLLECTION of COLLECTIONS">
       <a [routerLink]="['/exam', COLLECTION.C_ID]" routerLinkActive="router-link-active"

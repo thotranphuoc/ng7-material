@@ -71,4 +71,11 @@ export class AuthService {
   isAuth() {
     return this.isAuthenticated;
   }
+
+  logout() {
+    // this.user = null;
+    this.afa.auth.signOut();
+    // this.authUnsuccessful();
+
+  }
 }

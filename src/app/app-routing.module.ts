@@ -9,6 +9,7 @@ import { ExamComponent } from './exam/exam.component';
 import { ExamsComponent } from './exams/exams.component';
 import { TestComponent } from './test/test.component';
 import { LoginComponent } from './login/login.component';
+import { AccountComponent } from './account/account.component';
 
 const routes: Routes = [
   // { path: '', component: QuestionComponent },
@@ -22,6 +23,7 @@ const routes: Routes = [
   { path: 'auto-complete', component: ExampleAutocompleteComponent },
   { path: 'test', component: TestComponent },
   { path: 'login', component: LoginComponent },
+  { path: 'account', component: AccountComponent },
 ];
 
 @NgModule({

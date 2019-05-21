@@ -1,3 +1,16 @@
 <!-- <app-example-checkbox></app-example-checkbox>
 <app-example-autocomplete></app-example-autocomplete> -->
-<router-outlet></router-outlet>
+<!-- <router-outlet></router-outlet> -->
+
+<mat-sidenav-container>
+  <mat-sidenav #sidenav role="navigation">
+    <app-sidenav-list (sidenavToggle)="sidenav.toggle()"></app-sidenav-list>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <!-- <button (click)="sidenav.toggle()">Show Sidenav</button> -->
+    <app-header (sidenavToggle)="sidenav.toggle()"></app-header>
+    <main>
+      <router-outlet></router-outlet>
+    </main>
+  </mat-sidenav-content>
+</mat-sidenav-container>

@@ -3,6 +3,7 @@ import { iCollection } from '../interfaces/collection.interface';
 import { CrudService } from '../services/crud.service';
 import { AppService } from '../services/app.service';
 import { LogService } from '../services/log.service';
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-exams',
@@ -17,6 +18,7 @@ export class ExamsComponent implements OnInit {
   constructor(
     private crudService: CrudService,
     private appService: AppService,
+    public authService: AuthService,
     private log: LogService
   ) { }
 

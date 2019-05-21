@@ -26,6 +26,8 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatToolbarModule } from '@angular/material/toolbar';
 
 import * as env from '../environments/environment'
 import * as firebase from 'firebase/app';
@@ -40,6 +42,9 @@ import { AlertComponent } from './alert/alert.component';
 import { ToastComponent } from './toast/toast.component';
 import { TestComponent } from './test/test.component';
 import { LoadingComponent } from './loading/loading.component';
+import { SidenavListComponent } from './sidenav-list/sidenav-list.component';
+import { HeaderComponent } from './header/header.component';
+import { AccountComponent } from './account/account.component';
 
 firebase.initializeApp(env.environment.firebaseConfig)
 @NgModule({
@@ -57,7 +62,10 @@ firebase.initializeApp(env.environment.firebaseConfig)
     AlertComponent,
     ToastComponent,
     TestComponent,
-    LoadingComponent
+    LoadingComponent,
+    SidenavListComponent,
+    HeaderComponent,
+    AccountComponent
   ],
   entryComponents: [LoginComponent, AlertComponent],
   imports: [
@@ -80,6 +88,8 @@ firebase.initializeApp(env.environment.firebaseConfig)
     MatSnackBarModule,
     MatProgressSpinnerModule,
     MatButtonToggleModule,
+    MatSidenavModule,
+    MatToolbarModule,
     AngularFireModule.initializeApp(env.environment.firebaseConfig),
     AngularFirestoreModule,
     AngularFireAuthModule

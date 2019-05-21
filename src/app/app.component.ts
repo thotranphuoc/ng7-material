@@ -8,6 +8,7 @@ import { AuthService } from './services/auth.service';
 })
 export class AppComponent implements OnInit {
   title = 'ng7-material';
+  // openSidenav = false;
   constructor(private authService: AuthService) { }
   ngOnInit() {
     this.authService.initAuthListener();

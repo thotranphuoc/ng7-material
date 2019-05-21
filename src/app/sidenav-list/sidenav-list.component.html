@@ -1,0 +1,14 @@
+<mat-nav-list>
+  <a routerLink="/" (click)="onClose()">
+    <span class="item-caption">Academt 4 Creators</span>
+  </a>
+  <hr>
+  <a *ngIf="!isAuth" mat-list-item routerLink="/account" (click)="onClose()">
+    <mat-icon>input</mat-icon>
+    <span class="item-caption">Login</span>
+  </a>
+  <a *ngIf="isAuth" (click)="onLogout()">
+    <mat-icon>launch</mat-icon>
+    <span class="item-caption">Logout</span>
+  </a>
+</mat-nav-list>
