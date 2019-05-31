@@ -23,7 +23,7 @@
       </section>
     </mat-card-content>
   </mat-card> -->
-
+  <app-loading *ngIf="isLoading"></app-loading>
   <app-question *ngFor="let QUESTION of QUESTIONS" [QUESTION]="QUESTION">
 
   </app-question>

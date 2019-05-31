@@ -12,6 +12,7 @@ import { Router } from '@angular/router';
 export class AccountComponent implements OnInit {
   email = new FormControl('', [Validators.required, Validators.email]);
   password = new FormControl('', [Validators.required]);
+  name = new FormControl('', [Validators.required]);
   hide: boolean = true;
   isSignUp: boolean = false;
   ACTION: string = 'SIGNIN';
@@ -43,7 +44,7 @@ export class AccountComponent implements OnInit {
 
   onSignUp() {
     this.isLoading = true;
-    this.authService.signUp(this.email.value, this.password.value)
+    this.authService.signUp(this.email.value, this.password.value, this.name.value)
       .then((res) => {
         console.log(res);
         // save result

@@ -29,7 +29,10 @@
         <input matInput placeholder="Password" [formControl]="password" required [type]="hide ? 'password' : 'text'">
         <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
       </mat-form-field>
-
+      <mat-form-field>
+          <input matInput placeholder="Your name" [formControl]="name" required>
+          <mat-error *ngIf="email.invalid">{{getErrorMessage()}}</mat-error>
+        </mat-form-field>
       <!-- <button mat-button (click)="onCancel()">CANCEL</button> -->
       <button mat-button (click)="onSignUp()" cdkFocusInitial>SIGN UP</button>
       <app-loading *ngIf="isLoading"></app-loading>

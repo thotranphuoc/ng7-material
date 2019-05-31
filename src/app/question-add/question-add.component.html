@@ -1,35 +1,43 @@
-<form class="example-form">
-  <mat-form-field class="question-title">
-    <input [(ngModel)]="Q.Q_Title" name="Q_Title" matInput placeholder="Title" value="Question 1">
-  </mat-form-field>
-  <mat-form-field class="question-text">
-    <textarea  [(ngModel)]="Q.Q_Text" name="Q_Text" matInput placeholder="Text"></textarea>
-  </mat-form-field>
+<div class="container">
+  <form class="example-form">
+    <mat-form-field class="question-title">
+      <input [(ngModel)]="Q.Q_Title" name="Q_Title" matInput placeholder="Title" value="Question 1">
+    </mat-form-field>
+    <mat-form-field class="question-text">
+      <textarea [(ngModel)]="Q.Q_Text" name="Q_Text" matInput placeholder="Text"></textarea>
+    </mat-form-field>
 
-  <mat-form-field class="example-full-width">
-    <textarea  [(ngModel)]="ANSWER1" name="ANSWER1" matInput placeholder="Answer 1"></textarea>
-  </mat-form-field>
-  <mat-form-field class="example-full-width">
-    <textarea  [(ngModel)]="ANSWER2" name="ANSWER2"  matInput placeholder="Answer 2"></textarea>
-  </mat-form-field>
-  <mat-form-field class="example-full-width">
-    <textarea  [(ngModel)]="ANSWER3" name="ANSWER3" matInput placeholder="Answer 3"></textarea>
-  </mat-form-field>
-  <mat-form-field class="example-full-width">
-    <textarea  [(ngModel)]="ANSWER4" name="ANSWER4" matInput placeholder="Answer 4"></textarea>
-  </mat-form-field>
-</form>
+    <mat-form-field class="example-full-width">
+      <textarea [(ngModel)]="ANSWER1" name="ANSWER1" matInput placeholder="Answer 1"></textarea>
+    </mat-form-field>
+    <mat-form-field class="example-full-width">
+      <textarea [(ngModel)]="ANSWER2" name="ANSWER2" matInput placeholder="Answer 2"></textarea>
+    </mat-form-field>
+    <mat-form-field class="example-full-width">
+      <textarea [(ngModel)]="ANSWER3" name="ANSWER3" matInput placeholder="Answer 3"></textarea>
+    </mat-form-field>
+    <mat-form-field class="example-full-width">
+      <textarea [(ngModel)]="ANSWER4" name="ANSWER4" matInput placeholder="Answer 4"></textarea>
+    </mat-form-field>
+  </form>
 
-<section class="example-section">
-  <label class="example-margin">Correct Answer:</label>
-  <mat-radio-group [(ngModel)]="correctedAnswer">
-    <mat-radio-button class="example-margin" value="1">Answer 1</mat-radio-button>
-    <mat-radio-button class="example-margin" value="2">Answer 2</mat-radio-button>
-    <mat-radio-button class="example-margin" value="3">Answer 3</mat-radio-button>
-    <mat-radio-button class="example-margin" value="4">Answer 4</mat-radio-button>
-  </mat-radio-group>
-</section>
+  <section class="example-section">
+    <label class="example-margin">Correct Answer:</label>
+    <mat-radio-group [(ngModel)]="correctedAnswer">
+      <mat-radio-button class="example-margin" value="1">Answer 1</mat-radio-button>
+      <mat-radio-button class="example-margin" value="2">Answer 2</mat-radio-button>
+      <mat-radio-button class="example-margin" value="3">Answer 3</mat-radio-button>
+      <mat-radio-button class="example-margin" value="4">Answer 4</mat-radio-button>
+    </mat-radio-group>
+  </section>
 
-<div class="btn">
-    <button mat-raised-button color="warn" (click)="createQuestion()">Create</button>
+  <div class="btn">
+    <button *ngIf="!isUpdate" mat-raised-button color="warn" (click)="createQuestion()">Create</button>
+    <button *ngIf="isUpdate" mat-raised-button color="warn" (click)="updateQuestion()">Update</button>
+  </div>
+  <app-loading *ngIf="isLoading"></app-loading>
+  <div *ngIf="ACTION =='PREVIEW' && !isLoading">
+    <p>RESULT:</p>
+    <app-question-update-preview *ngIf="QUESTION" [QUESTION]="QUESTION"></app-question-update-preview>
+  </div>
 </div>

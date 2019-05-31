@@ -4,16 +4,23 @@ import * as firebase from 'firebase';
 import 'firebase/auth';
 import { Subject } from 'rxjs';
 import { UiService } from './ui.service';
+import { CrudService } from './crud.service';
+import { LocalService } from './local.service';
+import { iUser } from '../interfaces/user.interface';
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
   authChange = new Subject<boolean>();
-  user = null;
+  // isAuthenticated = new Subject<boolean>();
+  _user: firebase.User = null;
+  USER: iUser;
   private isAuthenticated = false;
   constructor(
     private afa: AngularFireAuth,
-    private uiService: UiService
+    private uiService: UiService,
+    private crudService: CrudService,
+    private localService: LocalService
   ) { }
 
 
@@ -21,26 +28,48 @@ export class AuthService {
     this.afa.authState.subscribe((user) => {
       console.log(user);
       if (user) {
-        this.user = user;
+        this._user = user;
         console.log('user logged in');
         this.isAuthenticated = true;
         this.authChange.next(true);
+        this.getUserInfo();
       } else {
-        this.user = null;
+        this._user = null;
         console.log('user not logged in');
         this.isAuthenticated = false;
         this.authChange.next(false);
       }
     })
   }
-  signUp(EMAIL: string, PASS: string) {
+
+  getUser(){
+    return this._user;
+  }
+
+  getUserInfo(){
+    this.crudService.userGet(this._user.uid).then((res)=>{
+      this.USER = <iUser>res.data();
+      console.log(this.USER);
+    })
+  }
+
+  signUp(EMAIL: string, PASS: string, NAME: string) {
     // return firebase.auth().createUserWithEmailAndPassword(EMAIL, PASS);
     return new Promise((resolve, reject) => {
       this.uiService.loadingStateChanged.next(true);
       this.afa.auth.createUserWithEmailAndPassword(EMAIL, PASS)
         .then((res) => {
-          this.user = res.user;
+          this._user = res.user;
+          console.log(this._user);
           this.uiService.loadingStateChanged.next(false);
+          let USER = this.localService.USER_DEFAULT;
+          USER.U_NAME = NAME;
+          USER.U_ID = res.user.uid;
+          USER.U_EMAIL = EMAIL;
+          return this.crudService.userAdd(USER)
+        })
+        .then((res)=>{
+          console.log(res);
           resolve();
         })
         .catch(err => {

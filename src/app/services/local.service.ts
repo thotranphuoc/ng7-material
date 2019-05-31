@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { iQuestion } from '../interfaces/question.interface';
 import { iCollection } from '../interfaces/collection.interface';
 import { iExam } from '../interfaces/exam.interface';
+import { iUser } from '../interfaces/user.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -57,5 +58,12 @@ export class LocalService {
     E_TAKEN_ID: '',
     E_TAKEN_DATE: null,
     E_DATE: null
+  }
+
+  USER_DEFAULT: iUser = {
+    U_BIRTHDAY: '',
+    U_EMAIL: '',
+    U_ID: '',
+    U_NAME: ''
   }
 }

@@ -1,0 +1,15 @@
+<mat-card>
+  <mat-card-content>
+    <section class="section-question">
+      <h3>{{QUESTION.Q_Title}}</h3> 
+      <p>{{QUESTION.Q_Text}}</p>
+    </section>
+    <section class="section">
+      <mat-radio-group value="{{QUESTION.Q_answerIndex}}">
+        <mat-radio-button *ngFor="let Answer of QUESTION.Q_Answers" value="{{Answer.A_ID}}">
+          <span class="wrap-mat-radio-label" [ngClass]="{rightAnswer: Answer.A_isCorrect}">{{Answer.A_Text}}</span>
+        </mat-radio-button>
+      </mat-radio-group>
+    </section>
+  </mat-card-content>
+</mat-card>

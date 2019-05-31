@@ -62,21 +62,21 @@ export class LoginComponent implements OnInit, OnDestroy {
       })
   }
 
-  onSignUp() {
-    this.isLoading = true;
-    this.authService.signUp(this.email.value, this.password.value)
-      .then((res) => {
-        console.log(res);
-        // save result
-        this.onCancel();
-        this.isLoading = false;
-      })
-      .catch((err: Error) => {
-        console.log(err);
-        // this.appService.alertShow(err.message)
-        this.isLoading = false;
-      })
-  }
+  // onSignUp() {
+  //   this.isLoading = true;
+  //   this.authService.signUp(this.email.value, this.password.value, this.name.value)
+  //     .then((res) => {
+  //       console.log(res);
+  //       // save result
+  //       this.onCancel();
+  //       this.isLoading = false;
+  //     })
+  //     .catch((err: Error) => {
+  //       console.log(err);
+  //       // this.appService.alertShow(err.message)
+  //       this.isLoading = false;
+  //     })
+  // }
 
 
   getErrorMessage() {

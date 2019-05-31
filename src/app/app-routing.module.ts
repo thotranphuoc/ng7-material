@@ -10,13 +10,19 @@ import { ExamsComponent } from './exams/exams.component';
 import { TestComponent } from './test/test.component';
 import { LoginComponent } from './login/login.component';
 import { AccountComponent } from './account/account.component';
+import { QuestionUpdateComponent } from './question-update/question-update.component';
+import { ExamsOfUserComponent } from './exams-of-user/exams-of-user.component';
+import { HistoryComponent } from './history/history.component';
 
 const routes: Routes = [
   // { path: '', component: QuestionComponent },
 
   { path: '', component: ExamsComponent },
   { path: 'exam/:id', component: ExamComponent },
+  { path: 'exams-of-user/:id', component: ExamsOfUserComponent },
+  { path: 'history', component: HistoryComponent},
   { path: 'question-add', component: QuestionAddComponent },
+  { path: 'question-update/:id', component: QuestionUpdateComponent },
   { path: 'question', component: QuestionComponent },
   { path: 'questions-upload', component: QuestionsUploadComponent },
   { path: 'checkbox', component: ExampleCheckboxComponent },

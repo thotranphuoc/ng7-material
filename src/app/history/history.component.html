@@ -1,0 +1,14 @@
+<div class="container">
+  <mat-list *ngIf="!SelectedRESULT">
+    <mat-list-item *ngFor="let RESULT of RESULTS" (click)="viewResult(RESULT)">
+      <h3 matLine> {{RESULT.E_TITLE}} </h3>
+      <p matLine> SCORE: {{getCorrectionFromQuestions(RESULT)}} </p>
+    </mat-list-item>
+  </mat-list>
+
+  <div *ngIf="SelectedRESULT">
+    <button mat-button color="primary" (click)="SelectedRESULT = null"><mat-icon>arrow_back_ios</mat-icon> Back</button>
+    <h3>{{SelectedRESULT.E_TITLE}}</h3>
+    <app-question-result-view *ngFor="let QUESTION of QUESTIONS" [QUESTION]="QUESTION"></app-question-result-view>
+  </div>
+</div>

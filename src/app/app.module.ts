@@ -45,6 +45,10 @@ import { LoadingComponent } from './loading/loading.component';
 import { SidenavListComponent } from './sidenav-list/sidenav-list.component';
 import { HeaderComponent } from './header/header.component';
 import { AccountComponent } from './account/account.component';
+import { QuestionUpdateComponent } from './question-update/question-update.component';
+import { QuestionUpdatePreviewComponent } from './question-update-preview/question-update-preview.component';
+import { ExamsOfUserComponent } from './exams-of-user/exams-of-user.component';
+import { HistoryComponent } from './history/history.component';
 
 firebase.initializeApp(env.environment.firebaseConfig)
 @NgModule({
@@ -65,7 +69,11 @@ firebase.initializeApp(env.environment.firebaseConfig)
     LoadingComponent,
     SidenavListComponent,
     HeaderComponent,
-    AccountComponent
+    AccountComponent,
+    QuestionUpdateComponent,
+    QuestionUpdatePreviewComponent,
+    ExamsOfUserComponent,
+    HistoryComponent
   ],
   entryComponents: [LoginComponent, AlertComponent],
   imports: [

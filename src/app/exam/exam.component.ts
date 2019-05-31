@@ -77,7 +77,12 @@ export class ExamComponent implements OnInit {
 
     console.log(this.EXAM)
     if (this.authService.isAuth()) {
-      this.EXAM.E_EXAMINEE_ID = this.authService.user.uid;
+      this.EXAM.E_EXAMINEE_ID = this.authService.USER.U_ID;
+      this.EXAM.E_EXAMINEE = this.authService.USER.U_NAME;
+      this.EXAM.E_TITLE = this.COLLECTION.C_TITLE;
+      this.EXAM.E_DATE = Date.now();
+      this.EXAM.E_EXAMINER = this.COLLECTION.C_OWNER;
+      this.EXAM.E_EXAMINER_ID = this.COLLECTION.C_OWNER_ID;
       this.doSaveResult();
     } else {
       this.openDialog();
@@ -95,7 +100,7 @@ export class ExamComponent implements OnInit {
       console.log('The dialog was closed');
       console.log(result);
       if (this.authService.isAuth()) {
-        this.EXAM.E_EXAMINEE_ID = this.authService.user.uid;
+        this.EXAM.E_EXAMINEE_ID = this.authService.getUser().uid;
         this.doSaveResult();
       }
       // this.appService.toastShowWithConfirmOK('Save successfully', 'OK');

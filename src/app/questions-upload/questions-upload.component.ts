@@ -6,6 +6,7 @@ import { CrudService } from '../services/crud.service';
 import { iCollection } from '../interfaces/collection.interface';
 import { LocalService } from '../services/local.service';
 import { LogService } from '../services/log.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-questions-upload',
@@ -15,7 +16,9 @@ import { LogService } from '../services/log.service';
 export class QuestionsUploadComponent implements OnInit {
   QUESTIONS: iQuestion[] = [];
   COLLECTION: iCollection;
+  isLoading: boolean = false;
   constructor(
+    private router: Router,
     private papa: Papa,
     private crudService: CrudService,
     private localService: LocalService,
@@ -139,6 +142,7 @@ export class QuestionsUploadComponent implements OnInit {
   }
 
   insertDB() {
+    this.isLoading = true;
     let _QUESTIONS = this.QUESTIONS.slice(0);
     _QUESTIONS.map(Q => Q.Q_answerIndex = null);
     this.crudService.questionsAdd(_QUESTIONS)
@@ -150,9 +154,18 @@ export class QuestionsUploadComponent implements OnInit {
       })
       .then(res => {
         if(this.log.isON) console.log(res);
+        this.isLoading = false;
+        this.initValues();
       })
       .catch(err => {
         if(this.log.isON) console.log(err);
+        this.isLoading = false;
       })
+  }
+
+  initValues(){
+    this.COLLECTION = this.localService.COLLECTION_DEFAULT;
+    this.QUESTIONS = [];
+    this.isLoading = false;
   }
 }

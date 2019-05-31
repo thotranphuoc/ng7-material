@@ -1,0 +1,31 @@
+.container{
+    padding: 10px;
+}
+
+.section{
+    display: flex;
+    align-content: center;
+    align-items: center;
+}
+
+mat-radio-button{
+    width: 100%;
+    padding: 10px;
+}
+
+.wrap-mat-radio-label {
+    white-space: normal;
+}
+
+.rightAnswer{
+    color: #ff4081;
+    font-weight: bolder;
+}
+
+mat-card{
+    margin: 10px 0;
+}
+
+mat-icon{
+    color: #565354;
+}

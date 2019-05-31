@@ -15,7 +15,10 @@ export class TestComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.deleteSinh();
+    // this.deleteSinh();
+    this.searchCollection();
+    // this.updateCollectionWithQIDTrue();
+    this.deleteCollection('zwkaIndrprFnmwHQ21OR');
   }
 
   deleteSinh() {
@@ -49,6 +52,41 @@ export class TestComponent implements OnInit {
 
     this.crudService.questionDelete('YhQaSpZ5DgE1ezmtTzZn');
     
+  }
+
+  searchCollection(){
+    this.crudService.collectionsOfQuestionGet('mGcmLgwnxo7xT594FvJu').then((res)=>{
+      res.forEach(doc=>{
+        let COL = <iCollection>doc.data();
+        console.log(COL);
+      })
+    })
+  }
+
+  updateCollectionWithQIDTrue(){
+    let COLLECTIONS = [];
+    this.crudService.collectionsGet().then((q)=>{
+      q.forEach(doc=>{
+        let COL = <iCollection>doc.data();
+        let QUESTIONS = COL.C_QUESTIONS;
+        QUESTIONS.forEach(Q=>{
+          COL[Q.Q_ID] = true;
+        });
+        console.log(COL);
+        doc.ref.update(COL);
+      })
+    })
+  }
+
+
+  deleteCollection(ID: string){
+    this.crudService.collectionDelete(ID)
+    .then((res)=>{
+      console.log(console.log(res, 'collection deleted successfully'));
+    })
+    .catch(err=>{
+      console.log(err);
+    })
   }
 
 }
