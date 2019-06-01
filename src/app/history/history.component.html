@@ -1,13 +1,28 @@
 <div class="container">
-  <mat-list *ngIf="!SelectedRESULT">
-    <mat-list-item *ngFor="let RESULT of RESULTS" (click)="viewResult(RESULT)">
-      <h3 matLine> {{RESULT.E_TITLE}} </h3>
-      <p matLine> SCORE: {{getCorrectionFromQuestions(RESULT)}} </p>
-    </mat-list-item>
-  </mat-list>
+  <div *ngIf="!SelectedRESULT">
+    <mat-card class="example-card" *ngFor="let RESULT of RESULTS" (click)="viewResult(RESULT)">
+      <mat-card-header>
+        <div mat-card-avatar class="example-header-image"></div>
+        <mat-card-title>{{RESULT.E_TITLE }}</mat-card-title>
+        <!-- <mat-card-subtitle>{{RESULT.C_QUESTIONS.length}} questions</mat-card-subtitle> -->
+      </mat-card-header>
+      <!-- <img mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Photo of a Shiba Inu"> -->
+      <mat-card-content>
+        <p></p>
+        <p>SCORE: {{getCorrectionFromQuestions(RESULT)}}</p>
+        <p>Taken on: {{RESULT.E_TAKEN_DATE | date}}</p>
+      </mat-card-content>
+      <mat-card-actions>
+        <!-- <button mat-button>LIKE</button> -->
+        <button matSuffix mat-button color="primary">VIEW RESULT</button>
+      </mat-card-actions>
+    </mat-card>
+  </div>
 
   <div *ngIf="SelectedRESULT">
-    <button mat-button color="primary" (click)="SelectedRESULT = null"><mat-icon>arrow_back_ios</mat-icon> Back</button>
+    <button mat-button color="primary" (click)="SelectedRESULT = null">
+      <mat-icon>arrow_back_ios</mat-icon> Back
+    </button>
     <h3>{{SelectedRESULT.E_TITLE}}</h3>
     <app-question-result-view *ngFor="let QUESTION of QUESTIONS" [QUESTION]="QUESTION"></app-question-result-view>
   </div>

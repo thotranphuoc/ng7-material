@@ -6,5 +6,6 @@ export interface iCollection {
     C_QUESTIONS: iQuestion[],
     C_OWNER: string,
     C_OWNER_ID: string,
-    C_CREATEDON: string
+    C_CREATEDON: string,
+    C_NOTE: string
 }

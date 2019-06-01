@@ -16,9 +16,10 @@ export class TestComponent implements OnInit {
 
   ngOnInit() {
     // this.deleteSinh();
-    this.searchCollection();
+    // this.searchCollection();
     // this.updateCollectionWithQIDTrue();
-    this.deleteCollection('zwkaIndrprFnmwHQ21OR');
+    // this.deleteCollection('zwkaIndrprFnmwHQ21OR');
+    // this.updateCollectionWithNotes();
   }
 
   deleteSinh() {
@@ -51,25 +52,25 @@ export class TestComponent implements OnInit {
     // // })
 
     this.crudService.questionDelete('YhQaSpZ5DgE1ezmtTzZn');
-    
+
   }
 
-  searchCollection(){
-    this.crudService.collectionsOfQuestionGet('mGcmLgwnxo7xT594FvJu').then((res)=>{
-      res.forEach(doc=>{
+  searchCollection() {
+    this.crudService.collectionsOfQuestionGet('mGcmLgwnxo7xT594FvJu').then((res) => {
+      res.forEach(doc => {
         let COL = <iCollection>doc.data();
         console.log(COL);
       })
     })
   }
 
-  updateCollectionWithQIDTrue(){
+  updateCollectionWithQIDTrue() {
     let COLLECTIONS = [];
-    this.crudService.collectionsGet().then((q)=>{
-      q.forEach(doc=>{
+    this.crudService.collectionsGet().then((q) => {
+      q.forEach(doc => {
         let COL = <iCollection>doc.data();
         let QUESTIONS = COL.C_QUESTIONS;
-        QUESTIONS.forEach(Q=>{
+        QUESTIONS.forEach(Q => {
           COL[Q.Q_ID] = true;
         });
         console.log(COL);
@@ -79,13 +80,25 @@ export class TestComponent implements OnInit {
   }
 
 
-  deleteCollection(ID: string){
+  deleteCollection(ID: string) {
     this.crudService.collectionDelete(ID)
-    .then((res)=>{
-      console.log(console.log(res, 'collection deleted successfully'));
-    })
-    .catch(err=>{
-      console.log(err);
+      .then((res) => {
+        console.log(console.log(res, 'collection deleted successfully'));
+      })
+      .catch(err => {
+        console.log(err);
+      })
+  }
+
+  updateCollectionWithNotes() {
+    let COLLECTIONS = [];
+    this.crudService.collectionsGet().then((q) => {
+      q.forEach(doc => {
+        let COL = <iCollection>doc.data();
+        COL['C_NOTE'] = 'Some notes here';
+        console.log(COL);
+        doc.ref.update(COL);
+      })
     })
   }
 

@@ -44,6 +44,7 @@ export class LocalService {
     C_OWNER_ID: '',
     C_QUESTIONS: [],
     C_TITLE: '',
+    C_NOTE: ''
   }
 
   EXAM_DEFAULT: iExam = {
