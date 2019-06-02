@@ -21,6 +21,10 @@ export class AppService {
     return newARR;
   }
 
+  arraySortItemsRandomly(ARR: any[]){
+    return ARR.sort(()=> Math.random() - 0.5);
+  }
+
   alertShow(MESSAGE: string){
     const dialogRef = this.dialog.open(AlertComponent, {
       width: '500px',

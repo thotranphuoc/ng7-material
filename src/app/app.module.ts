@@ -28,6 +28,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
 
 import * as env from '../environments/environment'
 import * as firebase from 'firebase/app';
@@ -75,7 +76,7 @@ firebase.initializeApp(env.environment.firebaseConfig)
     ExamsOfUserComponent,
     HistoryComponent
   ],
-  entryComponents: [LoginComponent, AlertComponent],
+  entryComponents: [LoginComponent, AlertComponent, AccountComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -98,6 +99,7 @@ firebase.initializeApp(env.environment.firebaseConfig)
     MatButtonToggleModule,
     MatSidenavModule,
     MatToolbarModule,
+    MatProgressBarModule,
     AngularFireModule.initializeApp(env.environment.firebaseConfig),
     AngularFirestoreModule,
     AngularFireAuthModule

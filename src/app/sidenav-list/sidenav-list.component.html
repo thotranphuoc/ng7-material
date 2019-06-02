@@ -4,20 +4,20 @@
   </a>
   <hr>
   <div *ngIf="!isAuth">
-    <a mat-list-item routerLink="/account" (click)="onClose()">
+    <a mat-list-item (click)="openLoginModal()" (click)="onClose()">
       <mat-icon>input</mat-icon>
       <span class="item-caption">Login</span>
     </a>
   </div>
   <div *ngIf="isAuth">
-      <a mat-list-item routerLink="/history" (click)="onClose()">
-        <mat-icon>schedule</mat-icon>
-        <span class="item-caption">History</span>
-      </a>
-      <a mat-list-item (click)="onLogout()">
-        <mat-icon>launch</mat-icon>
-        <span class="item-caption">Logout</span>
-      </a>
+    <a mat-list-item routerLink="/history" (click)="onClose()">
+      <mat-icon>schedule</mat-icon>
+      <span class="item-caption">History</span>
+    </a>
+    <a mat-list-item routerLink="/" (click)="onLogout()">
+      <mat-icon>launch</mat-icon>
+      <span class="item-caption">Logout</span>
+    </a>
 
   </div>
 </mat-nav-list>

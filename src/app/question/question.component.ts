@@ -22,7 +22,7 @@ export class QuestionComponent implements OnInit {
 
 
   onChange(mrChange: MatRadioChange) {
-    if(this.log.isON) console.log(mrChange.value);
+    if (this.log.isON) console.log(mrChange.value);
     this.QUESTION.Q_answerIndex = mrChange.value;
     this.QuestionUpdated.emit(this.QUESTION)
   }

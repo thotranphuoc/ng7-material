@@ -6,7 +6,7 @@
     </section>
     <section class="section">
       <mat-radio-group value="{{QUESTION.Q_answerIndex}}" (change)="onChange($event)">
-        <mat-radio-button *ngFor="let Answer of QUESTION.Q_Answers" value="{{Answer.A_ID}}">
+        <mat-radio-button *ngFor="let Answer of QUESTION.Q_Answers; let i = index" value="{{i+1}}">
           <span class="wrap-mat-radio-label">{{Answer.A_Text}}</span>
         </mat-radio-button>
       </mat-radio-group>

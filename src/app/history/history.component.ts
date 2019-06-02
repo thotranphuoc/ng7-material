@@ -58,16 +58,22 @@ export class HistoryComponent implements OnInit, OnDestroy {
       })
   }
 
-  getCorrectionFromQuestions(RESULT: iExam){
+  getCorrectionFromQuestions(RESULT: iExam) {
     let E_RESULTS = RESULT.E_RESULTS;
-    return E_RESULTS.filter(E=> E.Q_isCorrect).length.toString()+'/'+E_RESULTS.length.toString();
+    return E_RESULTS.filter(E => E.Q_isCorrect).length.toString() + '/' + E_RESULTS.length.toString();
   }
 
-  viewResult(RESULT: iExam){
+  getResult4Progress(RESULT: iExam) {
+    let E_RESULTS = RESULT.E_RESULTS;
+    return E_RESULTS.filter(E => E.Q_isCorrect).length * 100 / E_RESULTS.length.toString();
+
+  }
+
+  viewResult(RESULT: iExam) {
     console.log(RESULT);
     this.SelectedRESULT = RESULT;
     this.QUESTIONS = RESULT.E_RESULTS;
   }
 
-  
+
 }

@@ -1,12 +1,14 @@
 <mat-card>
   <mat-card-content>
     <section class="section-question">
-      <h3>{{QUESTION.Q_Title}} <mat-icon *ngIf="QUESTION.Q_isCorrect">thumb_up</mat-icon><mat-icon *ngIf="!QUESTION.Q_isCorrect">thumb_down</mat-icon></h3> 
+      <h3>{{QUESTION.Q_Title}} <mat-icon *ngIf="QUESTION.Q_isCorrect">thumb_up</mat-icon>
+        <mat-icon *ngIf="!QUESTION.Q_isCorrect">thumb_down</mat-icon>
+      </h3>
       <p>{{QUESTION.Q_Text}}</p>
     </section>
     <section class="section">
       <mat-radio-group value="{{QUESTION.Q_answerIndex}}">
-        <mat-radio-button *ngFor="let Answer of QUESTION.Q_Answers" value="{{Answer.A_ID}}">
+        <mat-radio-button *ngFor="let Answer of QUESTION.Q_Answers; let i = index" value="{{i + 1}}">
           <span class="wrap-mat-radio-label" [ngClass]="{rightAnswer: Answer.A_isCorrect}">{{Answer.A_Text}}</span>
         </mat-radio-button>
       </mat-radio-group>

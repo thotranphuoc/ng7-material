@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { AuthService } from '../services/auth.service';
-import { MatButtonToggleChange } from '@angular/material';
+import { MatButtonToggleChange, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { Router } from '@angular/router';
 
 @Component({
@@ -18,10 +18,16 @@ export class AccountComponent implements OnInit {
   ACTION: string = 'SIGNIN';
   // loadingSub = new Subscription();
   isLoading: boolean = false;
+  isModal: boolean = false;
   constructor(
     private authService: AuthService,
-    private router: Router
-  ) { }
+    private router: Router,
+    public dialogRef: MatDialogRef<AccountComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: DialogData
+  ) {
+    console.log(data);
+    this.isModal = data.isFromModal;
+  }
 
   ngOnInit() {
   }
@@ -32,8 +38,13 @@ export class AccountComponent implements OnInit {
     this.authService.signIn(this.email.value, this.password.value)
       .then((res) => {
         console.log(res);
-        this.router.navigate(['/'])
-        this.isLoading = false;
+        if (this.isModal) {
+          this.dialogRef.close();
+          this.isLoading = false;
+        } else {
+          this.router.navigate(['/'])
+          this.isLoading = false;
+        }
       })
       .catch((err: Error) => {
         console.log(err);
@@ -49,8 +60,13 @@ export class AccountComponent implements OnInit {
         console.log(res);
         // save result
         // this.onCancel();
-        this.router.navigate(['/'])
-        this.isLoading = false;
+        if (this.isModal) {
+          this.dialogRef.close();
+          this.isLoading = false;
+        } else {
+          this.router.navigate(['/'])
+          this.isLoading = false;
+        }
       })
       .catch((err: Error) => {
         console.log(err);
@@ -69,4 +85,12 @@ export class AccountComponent implements OnInit {
     console.log(e);
     this.ACTION = e.value;
   }
+}
+
+
+export interface DialogData {
+  name: string;
+  email: string;
+  password: string;
+  isFromModal: boolean
 }

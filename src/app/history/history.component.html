@@ -10,6 +10,7 @@
       <mat-card-content>
         <p></p>
         <p>SCORE: {{getCorrectionFromQuestions(RESULT)}}</p>
+        <mat-progress-bar mode="determinate" value="{{getResult4Progress(RESULT)}}"></mat-progress-bar>
         <p>Taken on: {{RESULT.E_TAKEN_DATE | date}}</p>
       </mat-card-content>
       <mat-card-actions>

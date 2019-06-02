@@ -1,6 +1,7 @@
 import { Component, OnInit, EventEmitter, Output, OnDestroy } from '@angular/core';
 import { AuthService } from 'src/app/services/auth.service';
 import { Subscription } from 'rxjs';
+import { AccountComponent } from '../account/account.component';
 
 @Component({
   selector: 'app-sidenav-list',
@@ -30,6 +31,10 @@ export class SidenavListComponent implements OnInit, OnDestroy {
 
   onClose() {
     this.sidenavToggle.emit();
+  }
+
+  openLoginModal() {
+    this.authService.openDialog(AccountComponent, true);
   }
 
 

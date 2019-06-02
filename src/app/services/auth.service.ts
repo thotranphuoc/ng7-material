@@ -7,6 +7,7 @@ import { UiService } from './ui.service';
 import { CrudService } from './crud.service';
 import { LocalService } from './local.service';
 import { iUser } from '../interfaces/user.interface';
+import { MatDialog } from '@angular/material';
 @Injectable({
   providedIn: 'root'
 })
@@ -20,7 +21,8 @@ export class AuthService {
     private afa: AngularFireAuth,
     private uiService: UiService,
     private crudService: CrudService,
-    private localService: LocalService
+    private localService: LocalService,
+    private dialog: MatDialog,
   ) { }
 
 
@@ -30,26 +32,33 @@ export class AuthService {
       if (user) {
         this._user = user;
         console.log('user logged in');
-        this.isAuthenticated = true;
-        this.authChange.next(true);
-        this.getUserInfo();
+        this.getUserInfo().then(res => {
+          this.isAuthenticated = true;
+          this.authChange.next(true);
+        })
       } else {
         this._user = null;
         console.log('user not logged in');
         this.isAuthenticated = false;
         this.authChange.next(false);
+        this.USER = null;
       }
     })
   }
 
-  getUser(){
+  getUser() {
     return this._user;
   }
 
-  getUserInfo(){
-    this.crudService.userGet(this._user.uid).then((res)=>{
-      this.USER = <iUser>res.data();
-      console.log(this.USER);
+  getUserInfo() {
+    return new Promise((resolve, reject) => {
+      this.crudService.userGet(this._user.uid).then((res) => {
+        this.USER = <iUser>res.data();
+        console.log(this.USER);
+        resolve({ USER: this.USER })
+      }).catch(err => {
+        reject(err);
+      })
     })
   }
 
@@ -68,7 +77,7 @@ export class AuthService {
           USER.U_EMAIL = EMAIL;
           return this.crudService.userAdd(USER)
         })
-        .then((res)=>{
+        .then((res) => {
           console.log(res);
           resolve();
         })
@@ -85,6 +94,10 @@ export class AuthService {
     return new Promise((resolve, reject) => {
       this.uiService.loadingStateChanged.next(true);
       this.afa.auth.signInWithEmailAndPassword(EMAIL, PASS)
+        .then(res => {
+          this._user = res.user;
+          return this.getUserInfo();
+        })
         .then((res) => {
           this.uiService.loadingStateChanged.next(false);
           resolve();
@@ -107,4 +120,30 @@ export class AuthService {
     // this.authUnsuccessful();
 
   }
+
+  openDialog(COMP: any, isModal: boolean) {
+    let _data: DialogData = { name: 'Tran Phuoc Tho', email: 'tho@en', password: '', isFromModal: isModal };
+    const dialogRef = this.dialog.open(COMP, {
+      width: '500px',
+      data: _data
+    });
+
+    return dialogRef.afterClosed()
+    // .subscribe(result => {
+    //   console.log('The dialog was closed');
+    //   console.log(result);
+    //   // if (this.authService.isAuth()) {
+    //   //   this.fillInfoIfAuth();
+    //   //   this.doSaveResult();
+    //   // }
+    //   // this.appService.toastShowWithConfirmOK('Save successfully', 'OK');
+    // });
+  }
+}
+
+export interface DialogData {
+  name: string;
+  email: string;
+  password: string;
+  isFromModal: boolean
 }
