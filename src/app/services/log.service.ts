@@ -4,11 +4,11 @@ import { Injectable } from '@angular/core';
   providedIn: 'root'
 })
 export class LogService {
-  public isON: boolean = false;
+  public isON: boolean = true;
   constructor() { }
 
-  print(Obj: any, Ob){
-    if(!this.isON) return;
+  print(Obj: any) {
+    if (!this.isON) return;
     console.log(Obj)
   }
 }

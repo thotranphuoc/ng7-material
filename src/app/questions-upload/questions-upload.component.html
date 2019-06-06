@@ -1,28 +1,17 @@
 <div class="container">
 
   <input type="file" (change)="parse($event.target.files)" hidden accept="*.csv" id="inputFile" />
-  <button *ngIf="!isReady2InsertDB()" mat-raised-button color="warn" (click)="upload()">Upload</button>
-  <button *ngIf="isReady2InsertDB()" mat-raised-button color="warn" (click)="insertDB()">Insert Database</button>
-  <div>
+  <button *ngIf="!isReady2InsertDB()" mat-raised-button color="warn" (click)="upload()">Upload File</button>
+
+  <div class="example-container">
     <mat-form-field class="question-title">
-      <input [(ngModel)]="COLLECTION.C_TITLE" name="C_TITLE" matInput placeholder="Collection">
+      <input [(ngModel)]="COLLECTION.C_TITLE" name="C_TITLE" matInput placeholder="Collection Title">
+    </mat-form-field>
+    <mat-form-field class="question-title">
+      <input [(ngModel)]="COLLECTION.C_DURATION" name="C_DURATION" matInput placeholder="Duration to take test">
     </mat-form-field>
   </div>
-  <!-- <mat-card *ngFor="let selectedQ of QUESTIONS" class="mat-card">
-    <mat-card-content>
-      <section class="section-question">
-        <h3>{{selectedQ.Q_Title}}</h3>
-        <p>{{selectedQ.Q_Text}}</p>
-      </section>
-      <section class="section">
-        <mat-radio-group value="{{selectedQ.Q_answerIndex}}" (change)="onChange($event)">
-          <mat-radio-button *ngFor="let Answer of selectedQ.Q_Answers" value="{{Answer.A_ID}}">
-            <span class="wrap-mat-radio-label">{{Answer.A_Text}}</span>
-          </mat-radio-button>
-        </mat-radio-group>
-      </section>
-    </mat-card-content>
-  </mat-card> -->
+  <button *ngIf="isReady2InsertDB()" mat-raised-button color="warn" (click)="insertDB()">Insert Database</button>
   <app-loading *ngIf="isLoading"></app-loading>
   <app-question *ngFor="let QUESTION of QUESTIONS" [QUESTION]="QUESTION">
 

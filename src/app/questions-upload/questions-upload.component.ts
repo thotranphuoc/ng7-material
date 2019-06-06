@@ -37,7 +37,7 @@ export class QuestionsUploadComponent implements OnInit {
   parse(files: FileList) {
     this.parse1(files)
       .then((res: any) => {
-        if(this.log.isON) console.log(res);
+        if (this.log.isON) console.log(res);
         return this.convertData(res);
       })
       .catch(err => { console.log(err) })
@@ -46,12 +46,12 @@ export class QuestionsUploadComponent implements OnInit {
   async parse1(files: FileList) {
     return new Promise((resolve, reject) => {
       const file: File = files.item(0);
-      if(this.log.isON) console.log(files);
+      if (this.log.isON) console.log(files);
       const reader: FileReader = new FileReader();
       reader.readAsText(file);
       reader.onload = (e) => {
         let csv = reader.result;
-        if(this.log.isON) console.log(csv);
+        if (this.log.isON) console.log(csv);
         this.papa.parse(String(csv), {
           header: true,
           complete: (results) => {
@@ -74,16 +74,16 @@ export class QuestionsUploadComponent implements OnInit {
   }
 
   convertData(ARR: any[]) {
-    if(this.log.isON) console.log(ARR)
+    if (this.log.isON) console.log(ARR)
 
     ARR.forEach((Item, index) => {
       if (index % 5 == 0) {
-        if(this.log.isON) console.log(Item.Quest);
+        if (this.log.isON) console.log(Item.Quest);
       }
     })
 
     let _arr = this.splitIntoSubArray(ARR, 5);
-    if(this.log.isON) console.log(_arr);
+    if (this.log.isON) console.log(_arr);
     this.convertData1(_arr);
   }
 
@@ -97,9 +97,10 @@ export class QuestionsUploadComponent implements OnInit {
   }
 
   convertData1(ArrayofArray: any[]) {
+    this.QUESTIONS = [];
     ArrayofArray.forEach((_Array: any[], _index) => {
       let indexAnswer: number;
-      if(this.log.isON) console.log(_Array);
+      if (this.log.isON) console.log(_Array);
       let _Q_Answers: iAnswer[] = [];
       _Array.forEach((Item, index) => {
         if (index > 0) {
@@ -123,11 +124,11 @@ export class QuestionsUploadComponent implements OnInit {
         Q_OwnerID: '',
         Q_Answers: _Q_Answers
       }
-      if(this.log.isON) console.log(Q);
+      if (this.log.isON) console.log(Q);
       this.QUESTIONS.push(Q);
       // this.crudService.questionNewAdd(Q);
     })
-    if(this.log.isON) console.log(this.QUESTIONS);
+    if (this.log.isON) console.log(this.QUESTIONS);
   }
 
   getIndexOfCorrectAnswer(Arr: iAnswer[]) {
@@ -138,6 +139,8 @@ export class QuestionsUploadComponent implements OnInit {
 
   isReady2InsertDB() {
     if (this.QUESTIONS.length < 1) return false;
+    if (this.COLLECTION.C_TITLE.trim().length < 1) return false;
+    if (this.COLLECTION.C_DURATION < 1) return false;
     return true;
   }
 
@@ -149,21 +152,21 @@ export class QuestionsUploadComponent implements OnInit {
       .then((Arr: any[]) => {
         let NEW_QUESTIONS = Arr.map(A => A.QUESTION);
         this.COLLECTION.C_QUESTIONS = NEW_QUESTIONS;
-        if(this.log.isON) console.log(this.COLLECTION);
+        if (this.log.isON) console.log(this.COLLECTION);
         return this.crudService.collectionAdd(this.COLLECTION);
       })
       .then(res => {
-        if(this.log.isON) console.log(res);
+        if (this.log.isON) console.log(res);
         this.isLoading = false;
         this.initValues();
       })
       .catch(err => {
-        if(this.log.isON) console.log(err);
+        if (this.log.isON) console.log(err);
         this.isLoading = false;
       })
   }
 
-  initValues(){
+  initValues() {
     this.COLLECTION = this.localService.COLLECTION_DEFAULT;
     this.QUESTIONS = [];
     this.isLoading = false;

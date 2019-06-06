@@ -20,3 +20,9 @@ mat-radio-button{
 .wrap-mat-radio-label {
     white-space: normal;
 }
+
+.example-container {
+    display: flex;
+    flex-direction: column;
+  }
+  
