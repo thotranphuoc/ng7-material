@@ -144,6 +144,11 @@ export class ExamComponent implements OnInit {
       })
   }
 
+  timeUp() {
+    console.log('Time up');
+    this.isResultShown = true;
+  }
+
 
 
 }

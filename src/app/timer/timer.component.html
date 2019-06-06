@@ -1,0 +1,4 @@
+<button mat-icon-button aria-label="Example icon-button with a heart icon">
+  <mat-icon *ngIf="!isTimeUp">timer</mat-icon>
+  <mat-icon *ngIf="isTimeUp">timer_off</mat-icon><span style="font-size: 1rem"> {{HH}}:{{MM}}:{{SS}}</span>
+</button>

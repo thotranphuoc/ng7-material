@@ -50,6 +50,7 @@ import { QuestionUpdateComponent } from './question-update/question-update.compo
 import { QuestionUpdatePreviewComponent } from './question-update-preview/question-update-preview.component';
 import { ExamsOfUserComponent } from './exams-of-user/exams-of-user.component';
 import { HistoryComponent } from './history/history.component';
+import { TimerComponent } from './timer/timer.component';
 
 firebase.initializeApp(env.environment.firebaseConfig)
 @NgModule({
@@ -74,7 +75,8 @@ firebase.initializeApp(env.environment.firebaseConfig)
     QuestionUpdateComponent,
     QuestionUpdatePreviewComponent,
     ExamsOfUserComponent,
-    HistoryComponent
+    HistoryComponent,
+    TimerComponent
   ],
   entryComponents: [LoginComponent, AlertComponent, AccountComponent],
   imports: [

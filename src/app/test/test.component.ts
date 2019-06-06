@@ -20,6 +20,7 @@ export class TestComponent implements OnInit {
     // this.updateCollectionWithQIDTrue();
     // this.deleteCollection('zwkaIndrprFnmwHQ21OR');
     // this.updateCollectionWithNotes();
+    this.updateCollectionWithDuration();
   }
 
   deleteSinh() {
@@ -96,6 +97,18 @@ export class TestComponent implements OnInit {
       q.forEach(doc => {
         let COL = <iCollection>doc.data();
         COL['C_NOTE'] = 'Some notes here';
+        console.log(COL);
+        doc.ref.update(COL);
+      })
+    })
+  }
+
+  updateCollectionWithDuration() {
+    let COLLECTIONS = [];
+    this.crudService.collectionsGet().then((q) => {
+      q.forEach(doc => {
+        let COL = <iCollection>doc.data();
+        COL['C_DURATION'] = 3600;
         console.log(COL);
         doc.ref.update(COL);
       })

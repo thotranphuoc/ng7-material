@@ -7,5 +7,6 @@ export interface iCollection {
     C_OWNER: string,
     C_OWNER_ID: string,
     C_CREATEDON: string,
-    C_NOTE: string
+    C_NOTE: string,
+    C_DURATION: number;
 }
